@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>全時間訓練呼召聚會 報名</title>
+<meta name="description" content="2026下 全時間訓練呼召聚會 台中場｜11/13（五）～11/14（六）報名">
+<meta name="theme-color" content="#f3eee3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f3eee3;      /* 宣紙 */
+  --paper2:#ebe4d4;
+  --card:#fbf8f1;
+  --ink:#2c3127;        /* 墨綠黑 */
+  --ink-soft:#5d5f50;
+  --ink-mute:#8b8875;
+  --line:rgba(70,60,35,.16);
+  --forest:#3d5a3a;     /* 森林綠 */
+  --moss:#6f8450;       /* 苔綠 */
+  --ridge:#3f6a86;      /* 山嵐藍 */
+  --sky:#a9c8dc;        /* 天空藍 */
+  --ochre:#b0803f;      /* 赭黃 */
+  --clay:#94573a;       /* 陶土 */
+  --ok:#4e7a45;
+  --err:#b4473a;
+  --radius:18px;
+  --serif:"Noto Serif TC","Songti TC",serif;
+  --brush:"LXGW WenKai TC","Kaiti TC","BiauKai",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC",sans-serif;
+  background:var(--paper);color:var(--ink);line-height:1.7;overflow-x:hidden;
+  /* 宣紙紋理 */
+  background-image:
+    radial-gradient(rgba(120,100,60,.05) 1px,transparent 1px),
+    radial-gradient(rgba(120,100,60,.04) 1px,transparent 1px);
+  background-size:7px 7px,13px 13px;background-position:0 0,3px 5px;
+}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+
+/* ---------- Hero：照片 + 雲霧 ---------- */
+.hero{position:relative;overflow:hidden;background:#7fa6bf;aspect-ratio:1579/790;max-height:92svh;width:100%}
+.hero .photo{
+  position:absolute;inset:-1.5%;background:url(theme.jpg) center/cover no-repeat;
+  animation:kenburns 26s ease-in-out infinite alternate;will-change:transform;transform-origin:50% 60%;
+}
+.hero .photo-inner{position:absolute;inset:0;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.035)}}
+.hero::after{ /* 底部融入紙色 */
+  content:"";position:absolute;left:0;right:0;bottom:0;height:22%;pointer-events:none;
+  background:linear-gradient(transparent,rgba(243,238,227,.0) 30%,rgba(243,238,227,.85) 85%,var(--paper));
+}
+#mist{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.veil{ /* 開場雲霧散開 */
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 55%,rgba(255,255,255,.0),rgba(255,255,255,.96) 40%),#fff;
+  animation:clear 3.2s cubic-bezier(.4,0,.2,1) .2s forwards;
+}
+@keyframes clear{
+  0%{opacity:1;-webkit-mask:radial-gradient(circle at 50% 55%,transparent 0%,#000 1%);mask:radial-gradient(circle at 50% 55%,transparent 0%,#000 1%)}
+  100%{opacity:0;-webkit-mask:radial-gradient(circle at 50% 55%,transparent 70%,#000 100%);mask:radial-gradient(circle at 50% 55%,transparent 70%,#000 100%)}
+}
+.birds{position:absolute;inset:0;pointer-events:none}
+.bird{position:absolute;width:26px;height:10px;opacity:0;animation:fly linear infinite}
+.bird svg{width:100%;height:100%;stroke:#2c3127;stroke-width:1.6;fill:none;animation:flap .5s ease-in-out infinite alternate;transform-origin:center}
+@keyframes flap{to{transform:scaleY(.35)}}
+@keyframes fly{0%{transform:translate(0,0);opacity:0}8%{opacity:.55}90%{opacity:.55}100%{transform:translate(110vw,-8vh);opacity:0}}
+
+/* ---------- 資訊帶（仿海報底部白條） ---------- */
+.band{position:relative;z-index:2;margin-top:-1px}
+.band-in{
+  max-width:1120px;margin:0 auto;padding:26px 16px 10px;
+  display:grid;grid-template-columns:auto auto 1fr;gap:10px 30px;align-items:center;
+}
+.band .term{font-family:var(--serif);font-weight:700;font-size:17px;line-height:1.35;letter-spacing:.35em;color:var(--ink-soft);text-align:justify}
+.band .title{font-family:var(--serif);font-weight:900;font-size:clamp(46px,7vw,76px);line-height:1;letter-spacing:.06em;white-space:nowrap}
+.band .title span{display:inline-block;opacity:0;transform:translateY(30px);filter:blur(8px);animation:ink 1.1s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes ink{to{opacity:1;transform:none;filter:none}}
+.band .when{font-family:var(--serif);font-size:18px;line-height:1.55;padding-left:28px;border-left:2px solid var(--ink)}
+.band .when b{font-size:22px;letter-spacing:.06em}
+.band .when small{display:block;color:var(--ink-soft);font-size:15px}
+
+.cta-row{max-width:1120px;margin:0 auto;padding:18px 16px 0;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.countdown{display:flex;gap:8px}
+.cd{min-width:66px;padding:10px 8px 6px;text-align:center;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.cd .n{display:block;font-family:var(--serif);font-weight:900;font-size:28px;line-height:1;font-variant-numeric:tabular-nums;color:var(--forest)}
+.cd .n.flip{animation:flip .5s ease}
+@keyframes flip{0%{transform:none}50%{transform:rotateX(90deg);opacity:.2}100%{transform:none}}
+.cd .l{font-size:12px;color:var(--ink-mute)}
+.cd-cap{font-size:14px;color:var(--ink-mute);margin-right:4px}
+
+.cta{
+  position:relative;display:inline-flex;align-items:center;gap:10px;padding:15px 32px;border-radius:999px;border:0;cursor:pointer;
+  font-size:18px;font-weight:700;letter-spacing:.08em;text-decoration:none;color:#f8f3e6;
+  background:linear-gradient(135deg,#4b6b45,var(--forest) 60%,#2f4a2f);
+  box-shadow:0 10px 26px -10px rgba(45,70,40,.75),inset 0 1px 0 rgba(255,255,255,.18);
+  overflow:hidden;isolation:isolate;transition:transform .3s,box-shadow .3s;
+}
+.cta::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,240,200,.35) 50%,transparent 70%);
+  transform:translateX(-120%);animation:sweep 3.6s ease-in-out infinite;
+}
+@keyframes sweep{55%,100%{transform:translateX(120%)}}
+.cta:hover{box-shadow:0 16px 34px -10px rgba(45,70,40,.85)}
+.cta svg{transition:transform .3s}
+.cta:hover svg{transform:translateY(3px)}
+
+/* ---------- 山脊分隔 ---------- */
+.ridges{position:relative;height:120px;margin-top:40px;overflow:hidden;pointer-events:none}
+.ridges svg{position:absolute;left:-5%;width:110%;bottom:0;height:100%}
+.ridges path{transition:transform .2s linear}
+
+/* ---------- 區塊 ---------- */
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+section{padding:64px 0}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.3em;color:var(--ochre);font-weight:700}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:currentColor}
+h2{font-family:var(--brush);font-weight:700;font-size:clamp(32px,5.4vw,46px);line-height:1.25;margin:6px 0 26px;letter-spacing:.06em}
+
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* 資訊卡 */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.fact{
+  position:relative;padding:24px 22px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);
+  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 14px 30px -24px rgba(60,50,20,.5);
+  transform-style:preserve-3d;transition:transform .2s ease-out,box-shadow .3s;overflow:hidden;
+}
+.fact::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(176,128,63,.16),transparent 55%);
+}
+.fact:hover::before{opacity:1}
+.fact:hover{box-shadow:0 24px 40px -24px rgba(60,50,20,.55)}
+.fact .ico{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;margin-bottom:12px;color:var(--forest);background:#e4e6d3;border:1px solid rgba(61,90,58,.2)}
+.fact h3{font-size:14px;color:var(--ink-mute);font-weight:500;letter-spacing:.15em}
+.fact p{font-family:var(--serif);font-size:20px;font-weight:700}
+.fact small{display:block;font-family:"Noto Sans TC",sans-serif;color:var(--ink-soft);font-size:14px;font-weight:400;margin-top:4px}
+.price{display:flex;gap:22px;flex-wrap:wrap}
+.price span{display:flex;flex-direction:column}
+.price em{font-style:normal;font-size:13px;color:var(--ink-mute)}
+.price b{font-family:var(--serif);font-size:30px;line-height:1.1;color:var(--clay)}
+.price b sup{font-size:13px;font-weight:500;color:var(--ink-soft);margin-left:2px;vertical-align:baseline}
+
+/* 行程 */
+.tabs{position:relative;display:inline-flex;padding:5px;border-radius:999px;background:var(--paper2);border:1px solid var(--line);margin-bottom:26px}
+.tab{position:relative;z-index:1;border:0;background:none;cursor:pointer;padding:9px 22px;border-radius:999px;font-weight:700;color:var(--ink-soft);transition:color .3s}
+.tab[aria-selected="true"]{color:#f8f3e6}
+.tab small{font-weight:500;opacity:.85;margin-left:2px}
+.tab-ind{position:absolute;top:5px;bottom:5px;left:0;border-radius:999px;background:var(--forest);box-shadow:0 6px 16px -8px rgba(45,70,40,.8);transition:transform .55s cubic-bezier(.5,1.5,.4,1),width .55s cubic-bezier(.5,1.5,.4,1)}
+
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline .beam{position:absolute;left:10px;top:6px;width:2px;height:0;background:linear-gradient(var(--ridge),var(--moss),var(--ochre));transition:height 1.3s cubic-bezier(.3,.8,.2,1)}
+.panel{display:none}
+.panel.on{display:block}
+.ev{
+  position:relative;display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:start;
+  padding:13px 18px;margin-bottom:8px;border-radius:14px;border:1px solid transparent;
+  opacity:0;transform:translateX(-22px);transition:background .3s,border-color .3s,transform .3s;
+}
+.panel.on .ev{animation:slideIn .65s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*70ms)}
+@keyframes slideIn{to{opacity:1;transform:none}}
+.ev::before{
+  content:"";position:absolute;left:-29px;top:21px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--ink-mute);transition:all .3s;
+}
+.ev:hover{background:var(--card);border-color:var(--line);transform:translateX(6px)}
+.ev:hover::before{background:var(--moss);border-color:var(--moss);box-shadow:0 0 0 6px rgba(111,132,80,.18)}
+.ev.key::before{background:var(--ochre);border-color:var(--ochre);box-shadow:0 0 0 4px rgba(176,128,63,.18)}
+.ev time{font-family:var(--serif);font-variant-numeric:tabular-nums;color:var(--ridge);font-weight:700;font-size:16px}
+.ev .what{font-weight:500}
+.ev .what small{display:block;color:var(--ink-mute);font-size:14px}
+.ev .tag{display:inline-block;font-size:12px;padding:1px 10px;border-radius:999px;margin-left:8px;vertical-align:2px;background:rgba(176,128,63,.14);color:#8a5f25;font-weight:700}
+
+/* 攜帶物品 */
+.pack{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  display:inline-flex;align-items:center;gap:10px;padding:11px 18px 11px 13px;border-radius:12px;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);user-select:none;transition:transform .2s,background .3s,border-color .3s;
+}
+.chip:hover{transform:translateY(-3px)}
+.chip:active{transform:scale(.95)}
+.chip .box{width:22px;height:22px;border-radius:6px;border:2px solid var(--ink-mute);display:grid;place-items:center;transition:all .35s cubic-bezier(.5,1.8,.4,1)}
+.chip .box svg{width:14px;height:14px;stroke:#f8f3e6;stroke-width:3.2;fill:none;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s .1s}
+.chip.on{background:#e7ead6;border-color:rgba(78,122,69,.45)}
+.chip.on .box{background:var(--ok);border-color:var(--ok);transform:rotate(-8deg) scale(1.1)}
+.chip.on .box svg{stroke-dashoffset:0}
+.chip.on .t{color:var(--ink-mute);text-decoration:line-through}
+.pack-meta{margin-top:14px;color:var(--ink-mute);font-size:15px}
+.pack-meta b{color:var(--ok)}
+
+/* 聯絡 */
+.contacts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.contact{
+  display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:var(--radius);text-decoration:none;
+  background:var(--card);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s;
+}
+.contact:hover{transform:translateY(-4px);border-color:rgba(63,106,134,.4);box-shadow:0 18px 30px -22px rgba(40,70,90,.6)}
+.avatar{width:52px;height:52px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--brush);font-weight:700;font-size:24px;color:#f8f3e6;background:linear-gradient(135deg,var(--ridge),#2d4e63)}
+.contact b{display:block;font-family:var(--serif);font-size:19px}
+.contact div span{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.contact .call{margin-left:auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(63,106,134,.12);color:var(--ridge)}
+.contact:hover .call{animation:ring .5s ease 2}
+@keyframes ring{25%{transform:rotate(-20deg)}75%{transform:rotate(12deg)}}
+
+/* ---------- 表單 ---------- */
+.form-card{
+  position:relative;padding:32px 28px;border-radius:24px;background:var(--card);border:1px solid var(--line);
+  box-shadow:0 30px 60px -40px rgba(60,50,20,.6);
+}
+.form-card::before{ /* 頂部山嵐色帶 */
+  content:"";position:absolute;left:0;right:0;top:0;height:6px;border-radius:24px 24px 0 0;
+  background:linear-gradient(90deg,var(--sky),var(--ridge),var(--forest),var(--moss),var(--ochre));
+  background-size:200% 100%;animation:flow 8s linear infinite;
+}
+@keyframes flow{to{background-position:-200% 0}}
+
+.progress{position:sticky;top:0;z-index:5;margin:-32px -28px 26px;padding:18px 28px 14px;background:rgba(251,248,241,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);border-radius:24px 24px 0 0}
+.progress .row{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--ink-soft);margin-bottom:8px}
+.progress .row b{font-family:var(--serif);color:var(--forest);font-size:16px}
+.trail{position:relative;height:22px}
+.trail .track{position:absolute;left:0;right:0;top:9px;height:4px;border-radius:4px;background:var(--paper2)}
+.trail .fill{position:absolute;left:0;top:9px;height:4px;width:0;border-radius:4px;background:linear-gradient(90deg,var(--ridge),var(--moss),var(--ochre));transition:width .7s cubic-bezier(.3,1.3,.4,1)}
+.trail .hiker{position:absolute;top:0;left:0;width:22px;height:22px;margin-left:-11px;transition:left .7s cubic-bezier(.3,1.3,.4,1)}
+.trail .peak{position:absolute;right:-4px;top:-4px;width:26px;height:22px;color:var(--ink-mute);transition:color .4s}
+.trail.done .peak{color:var(--ochre)}
+
+.field{margin-bottom:22px}
+.field.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.q{display:flex;align-items:center;gap:9px;font-weight:700;margin-bottom:10px}
+.q .num{width:26px;height:26px;flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:13px;border:1.5px solid var(--line);color:var(--ink-soft);transition:all .45s cubic-bezier(.5,1.8,.4,1)}
+.field.done .q .num{background:var(--ok);border-color:var(--ok);color:#f8f3e6;transform:rotate(360deg)}
+.q .req{color:var(--clay)}
+.hint{font-size:14px;color:var(--ink-mute);font-weight:400;margin:-6px 0 10px}
+.err-msg{font-size:14px;color:var(--err);max-height:0;overflow:hidden;transition:max-height .3s,margin .3s}
+.field.bad .err-msg{max-height:40px;margin-top:6px}
+
+.input{
+  width:100%;padding:13px 16px;border-radius:12px;background:#f6f1e6;border:1.5px solid var(--line);
+  font-size:17px;outline:none;transition:border-color .25s,box-shadow .25s,background .25s;
+}
+.input::placeholder{color:#a8a38f}
+.input:focus{border-color:var(--forest);background:#fff;box-shadow:0 0 0 4px rgba(61,90,58,.14)}
+.field.bad .input{border-color:var(--err)}
+.field.done .input{border-color:rgba(78,122,69,.45)}
+textarea.input{min-height:100px;resize:vertical}
+
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{
+  display:flex;align-items:center;gap:10px;padding:11px 18px;border-radius:12px;cursor:pointer;
+  background:#f6f1e6;border:1.5px solid var(--line);transition:all .25s;user-select:none;
+}
+.opt label::before{content:"";width:18px;height:18px;border-radius:50%;border:2px solid var(--ink-mute);flex:none;transition:all .3s cubic-bezier(.5,1.8,.4,1)}
+.opt label:hover{border-color:rgba(61,90,58,.4);transform:translateY(-2px)}
+.opt input:checked + label{border-color:var(--forest);background:#e7ead6;box-shadow:0 8px 18px -12px rgba(45,70,40,.7)}
+.opt input:checked + label::before{border-color:var(--forest);background:var(--forest);box-shadow:inset 0 0 0 3px #e7ead6}
+.opt input:focus-visible + label{outline:2px solid var(--ridge);outline-offset:2px}
+.opt label small{color:var(--ink-mute);font-size:13px}
+.other-input{max-height:0;opacity:0;overflow:hidden;transition:max-height .4s,opacity .3s,margin .3s}
+.other-input.on{max-height:80px;opacity:1;margin-top:10px}
+
+.submit{width:100%;justify-content:center;margin-top:8px;font-size:19px;padding:17px}
+.submit[disabled]{filter:saturate(.4) brightness(.9);cursor:wait}
+.submit .spin{width:20px;height:20px;border-radius:50%;border:3px solid rgba(248,243,230,.3);border-top-color:#f8f3e6;animation:rot .8s linear infinite;display:none}
+.submit[disabled] .spin{display:block}
+@keyframes rot{to{transform:rotate(360deg)}}
+.fine{font-size:13px;color:var(--ink-mute);text-align:center;margin-top:12px}
+
+.success{display:none;text-align:center;padding:24px 0 6px}
+.success.on{display:block;animation:pop .7s cubic-bezier(.3,1.5,.4,1)}
+@keyframes pop{from{opacity:0;transform:scale(.85)}}
+.check{width:104px;height:104px;margin:0 auto 18px}
+.check circle{fill:none;stroke:var(--ok);stroke-width:4;stroke-dasharray:320;stroke-dashoffset:320;animation:draw .9s .1s ease forwards}
+.check path{fill:none;stroke:var(--ok);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:80;stroke-dashoffset:80;animation:draw .5s .85s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.success h3{font-family:var(--brush);font-size:34px;margin-bottom:4px}
+.success p{color:var(--ink-soft)}
+.summary{margin:22px auto 0;max-width:420px;text-align:left;border-radius:14px;background:#f6f1e6;border:1px solid var(--line);padding:4px 18px}
+.summary div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:15px}
+.summary div:last-child{border-bottom:0}
+.summary span{color:var(--ink-mute)}
+.ghost{margin-top:20px;background:none;border:1px solid var(--line);color:var(--ink-soft);padding:10px 20px;border-radius:999px;cursor:pointer}
+.ghost:hover{color:var(--ink);border-color:var(--ink-soft)}
+
+/* ---------- 報名狀態 ---------- */
+.status{
+  display:none;align-items:center;gap:16px;padding:18px 20px;border-radius:18px;margin-bottom:18px;
+  border:1.5px solid;background:var(--card);
+}
+.status.on{display:flex;animation:pop .6s cubic-bezier(.3,1.5,.4,1)}
+.status.unpaid{border-color:rgba(201,153,40,.55);background:#fbf3dc}
+.status.paid{border-color:rgba(78,122,69,.5);background:#e9eedb}
+.status .dot{width:46px;height:46px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:22px}
+.status.unpaid .dot{background:#d4a52c;animation:pulse 2s infinite}
+.status.paid .dot{background:var(--ok)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,165,44,.55)}80%,100%{box-shadow:0 0 0 14px rgba(212,165,44,0)}}
+.status b{display:block;font-family:var(--serif);font-size:19px}
+.status small{color:var(--ink-soft);font-size:14px}
+.status .go{margin-left:auto;flex:none;padding:9px 16px;border-radius:999px;border:0;cursor:pointer;background:var(--ink);color:var(--paper);font-weight:700;font-size:14px;text-decoration:none}
+.status .reset{background:none;border:0;color:var(--ink-mute);font-size:13px;text-decoration:underline;cursor:pointer;margin-left:6px}
+
+/* ---------- 繳費 ---------- */
+.steps{display:flex;gap:8px;margin-bottom:22px;font-size:14px;color:var(--ink-mute)}
+.steps span{display:flex;align-items:center;gap:6px}
+.steps span+span::before{content:"";width:24px;height:1.5px;background:var(--line);margin-right:2px}
+.steps i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;border:1.5px solid var(--line)}
+.steps .on{color:var(--ink)}
+.steps .on i{background:var(--forest);border-color:var(--forest);color:#f8f3e6}
+.steps .ok i{background:var(--ok);border-color:var(--ok);color:#f8f3e6}
+
+.bank{display:grid;grid-template-columns:1fr auto;gap:4px 16px;align-items:center;padding:18px 20px;border-radius:16px;background:#f6f1e6;border:1px dashed rgba(70,60,35,.3);margin-bottom:20px}
+.bank .k{font-size:13px;color:var(--ink-mute)}
+.bank .v{font-family:var(--serif);font-size:22px;font-weight:700;letter-spacing:.04em;font-variant-numeric:tabular-nums;word-break:break-all}
+.bank .amt{grid-column:1/-1;margin-top:8px;padding-top:12px;border-top:1px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.bank .amt b{font-family:var(--serif);font-size:30px;color:var(--clay)}
+.copy{padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:14px;transition:all .25s}
+.copy:hover{border-color:var(--forest);color:var(--forest)}
+.copy.done{background:var(--ok);border-color:var(--ok);color:#fff}
+
+.drop{
+  position:relative;display:grid;place-items:center;text-align:center;gap:6px;min-height:190px;padding:22px;border-radius:16px;cursor:pointer;
+  border:2px dashed rgba(61,90,58,.35);background:#f6f1e6;transition:all .3s;overflow:hidden;
+}
+.drop:hover,.drop.over{border-color:var(--forest);background:#eef0e2}
+.drop.over{transform:scale(1.015)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.drop .up{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#e4e6d3;color:var(--forest);transition:transform .3s}
+.drop:hover .up{transform:translateY(-4px)}
+.drop small{color:var(--ink-mute)}
+.drop img{max-width:100%;max-height:280px;border-radius:10px;box-shadow:0 10px 24px -14px rgba(0,0,0,.5)}
+.drop.has{border-style:solid}
+.drop .swap{font-size:13px;color:var(--forest);text-decoration:underline}
+.lookup{display:grid;grid-template-columns:1fr 150px;gap:10px;margin-bottom:18px}
+.pay-msg{margin-top:10px;font-size:14px;color:var(--err);min-height:1em}
+
+/* ---------- 報名者小人 ---------- */
+.crowd-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.legend{display:flex;gap:16px;font-size:14px;color:var(--ink-soft)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%}
+.tally{font-family:var(--serif);font-size:17px;color:var(--ink-soft);margin-bottom:22px}
+.tally b{font-size:24px;color:var(--ink)}
+.crowd{
+  position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:18px 10px;padding:30px 12px 0;min-height:200px;
+  overflow:hidden;margin-bottom:-30px;
+}
+.person{
+  position:relative;z-index:1;width:84px;display:flex;flex-direction:column;align-items:center;cursor:default;
+  opacity:0;transform:translateY(30px) scale(.6);animation:popin .6s cubic-bezier(.3,1.6,.4,1) forwards;
+  animation-delay:calc(var(--i)*45ms);
+}
+@keyframes popin{to{opacity:1;transform:none}}
+.person svg{width:84px;height:116px;overflow:visible;transition:transform .3s}
+.person .body{transform-origin:42px 110px;animation:sway 3.2s ease-in-out infinite;animation-delay:calc(var(--i)*-370ms)}
+@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.person:hover svg{transform:translateY(-8px)}
+.person .arm-r{transform-origin:62px 58px;transition:transform .3s}
+.person:hover .arm-r{animation:wave .5s ease-in-out 3}
+@keyframes wave{50%{transform:rotate(-70deg)}}
+.person.unpaid{--c:#e2b13c;--c2:#c3911e;cursor:pointer}
+.person.paid{--c:#5f8f52;--c2:#46723c}
+.person .nm{
+  position:absolute;left:50%;top:60px;transform:translateX(-50%);width:62px;text-align:center;
+  font-family:var(--brush);font-weight:700;font-size:15px;line-height:1.15;color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);word-break:break-all;pointer-events:none;
+}
+.person .nm.sm{font-size:12px}
+.person .tip{
+  position:absolute;bottom:100%;left:50%;transform:translate(-50%,6px);white-space:nowrap;padding:5px 10px;border-radius:8px;
+  background:var(--ink);color:var(--paper);font-size:12px;opacity:0;pointer-events:none;transition:all .25s;z-index:3;
+}
+.person:hover .tip{opacity:1;transform:translate(-50%,-2px)}
+.person.me .tip{opacity:1;transform:translate(-50%,-2px);background:var(--clay)}
+.person.new{animation:popin .8s cubic-bezier(.3,1.8,.4,1) forwards,glow 1.6s ease 3 .6s}
+@keyframes glow{50%{filter:drop-shadow(0 0 14px rgba(176,128,63,.9))}}
+.crowd-empty{position:relative;z-index:1;align-self:center;color:var(--ink-mute);padding-bottom:40px}
+.demo{margin-top:14px;font-size:13px;color:var(--ink-mute);text-align:center}
+
+footer{position:relative;text-align:center;padding:0 16px 40px;color:#e8e2d0;font-size:14px;background:#2f4430}
+footer .ridges{margin:0 -16px;height:110px;background:var(--paper)}
+footer p{padding-top:6px}
+footer .verse{font-family:var(--brush);font-size:22px;color:#f3eee3;letter-spacing:.12em;margin-bottom:6px}
+
+#leaves{position:fixed;inset:0;z-index:50;pointer-events:none}
+
+/* ---------- 手機 ---------- */
+@media (max-width:820px){
+  .band-in{grid-template-columns:auto 1fr;gap:6px 18px;padding-top:18px}
+  .band .when{grid-column:1/-1;padding-left:0;border-left:0;border-top:1.5px solid var(--ink);padding-top:10px}
+  .band .term{font-size:15px;letter-spacing:.25em}
+}
+@media (max-width:760px){
+  section{padding:52px 0}
+  .facts,.contacts{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr;gap:0;padding:11px 14px}
+  .timeline{padding-left:28px}
+  .ev::before{left:-23px;top:17px}
+  .timeline::before,.timeline .beam{left:6px}
+  .form-card{padding:26px 18px}
+  .progress{margin:-26px -18px 22px;padding:16px 18px 12px}
+  .tab{padding:9px 16px}
+  .lookup{grid-template-columns:1fr}
+  .person{width:72px}
+  .steps{font-size:12px}
+  .cd{min-width:58px}
+  .cd .n{font-size:24px}
+  .ridges{height:80px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal,.ev,.band .title span{opacity:1;transform:none;filter:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="leaves" aria-hidden="true"></canvas>
+
+<main>
+  <!-- Hero -->
+  <header class="hero" aria-label="贏得基督 達到傑出的復活">
+    <div class="photo-inner"><div class="photo" role="img" aria-label="山嵐雲海，題字：贏得基督 達到傑出的復活"></div></div>
+    <canvas id="mist" aria-hidden="true"></canvas>
+    <div class="birds" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+  </header>
+
+  <!-- 海報資訊帶 -->
+  <div class="band">
+    <div class="band-in">
+      <div class="term">2026下<br>全時間<br>訓　練</div>
+      <h1 class="title" aria-label="呼召聚會"><span>呼</span><span>召</span><span>聚</span><span>會</span></h1>
+      <div class="when">
+        <b>11/13（五）～ 11/14（六）</b>
+        <small>台中場・遊覽車前往台北市</small>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a class="cta magnet" href="#signup">
+        立即報名
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+      <div class="countdown" aria-label="距離出發">
+        <span class="cd-cap">距離出發</span>
+        <div class="cd"><span class="n" data-u="d">--</span><span class="l">天</span></div>
+        <div class="cd"><span class="n" data-u="h">--</span><span class="l">時</span></div>
+        <div class="cd"><span class="n" data-u="m">--</span><span class="l">分</span></div>
+        <div class="cd"><span class="n" data-u="s">--</span><span class="l">秒</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ridges" aria-hidden="true" data-ridge></div>
+
+  <!-- 基本資訊 -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="facts">
+        <div class="fact reveal tilt">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+          <h3>日期</h3>
+          <p>11/13（五）～ 11/14（六）<small>兩天一夜</small></p>
+        </div>
+        <div class="fact reveal tilt" style="transition-delay:.1s">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+          <h3>地點</h3>
+          <p>台北市<small>霧峰郵局／中聯百貨太平店 上車</small></p>
+        </div>
+        <div class="fact reveal tilt" style="transition-delay:.2s">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-1-1.6-1.7-2.8-1.7-1.7 0-3 1-3 2.3s1.3 1.9 3 2.2c1.7.3 3 1 3 2.3S13.7 17 12 17c-1.3 0-2.4-.7-2.9-1.7M12 6v1.5M12 17v1.5"/></svg></div>
+          <h3>費用</h3>
+          <div class="price">
+            <span><em>學生</em><b data-count="650">0<sup>元</sup></b></span>
+            <span><em>非學生</em><b data-count="900">0<sup>元</sup></b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 行程 -->
+  <section id="schedule">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">SCHEDULE</div>
+        <h2>行程</h2>
+      </div>
+      <div class="tabs reveal" role="tablist">
+        <span class="tab-ind" aria-hidden="true"></span>
+        <button class="tab" role="tab" aria-selected="true" data-p="d1">11/13<small>（五）</small></button>
+        <button class="tab" role="tab" aria-selected="false" data-p="d2">11/14<small>（六）</small></button>
+      </div>
+      <div class="timeline">
+        <span class="beam" aria-hidden="true"></span>
+        <div class="panel on" id="d1" role="tabpanel">
+          <div class="ev key" style="--i:0"><time>17:00 – 17:40</time><div class="what">從霧峰郵局往中聯百貨太平店<span class="tag">集合</span></div></div>
+          <div class="ev" style="--i:1"><time>17:40 – 20:00</time><div class="what">從中聯百貨太平店往通化夜市</div></div>
+          <div class="ev" style="--i:2"><time>20:00 – 21:30</time><div class="what">逛通化夜市<small>晚餐</small></div></div>
+          <div class="ev" style="--i:3"><time>21:30 –</time><div class="what">返回住宿地點</div></div>
+        </div>
+        <div class="panel" id="d2" role="tabpanel">
+          <div class="ev" style="--i:0"><time>07:00 – 07:30</time><div class="what">晨興</div></div>
+          <div class="ev" style="--i:1"><time>07:30 – 08:30</time><div class="what">早餐</div></div>
+          <div class="ev" style="--i:2"><time>08:30 – 09:00</time><div class="what">路程</div></div>
+          <div class="ev key" style="--i:3"><time>09:00 – 10:00</time><div class="what">參觀主恢復展覽館</div></div>
+          <div class="ev" style="--i:4"><time>10:00 – 10:30</time><div class="what">路程</div></div>
+          <div class="ev key" style="--i:5"><time>10:30 – 12:00</time><div class="what">真理及服事主的見證<small>董育中弟兄｜84 會所</small></div></div>
+          <div class="ev" style="--i:6"><time>12:00 – 13:30</time><div class="what">午餐</div></div>
+          <div class="ev" style="--i:7"><time>13:30 – 15:00</time><div class="what">交通及休息</div></div>
+          <div class="ev key" style="--i:8"><time>15:00 – 17:00</time><div class="what">呼召聚會下午場<span class="tag">重點</span></div></div>
+          <div class="ev" style="--i:9"><time>17:00 – 19:30</time><div class="what">往中聯百貨</div></div>
+          <div class="ev" style="--i:10"><time>19:30 – 20:10</time><div class="what">往霧峰郵局</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 攜帶物品 -->
+  <section>
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">PACKING LIST</div>
+        <h2>攜帶物品</h2>
+      </div>
+      <div class="pack reveal" id="pack"></div>
+      <p class="pack-meta reveal" id="packMeta">點一下打勾，確認東西都帶齊了。</p>
+    </div>
+  </section>
+
+  <!-- 報名表 -->
+  <section id="signup">
+    <div class="wrap" style="max-width:720px">
+      <div class="reveal">
+        <div class="eyebrow">REGISTER</div>
+        <h2>填寫報名</h2>
+      </div>
+      <div class="status" id="myStatus" role="status" aria-live="polite">
+        <span class="dot" id="myDot">!</span>
+        <div><b id="myTitle"></b><small id="mySub"></small></div>
+        <a class="go" id="myGo" href="#pay">去繳費</a>
+      </div>
+      <div class="steps reveal" aria-hidden="true">
+        <span class="on" id="st1"><i>1</i>填寫報名</span>
+        <span id="st2"><i>2</i>匯款並上傳截圖</span>
+        <span id="st3"><i>3</i>報名完成</span>
+      </div>
+      <div class="form-card reveal" id="formCard">
+        <form id="form" novalidate>
+          <div class="progress">
+            <div class="row"><span>登山進度</span><b id="pct">0 / 8</b></div>
+            <div class="trail" id="trail">
+              <span class="track"></span><span class="fill" id="fill"></span>
+              <svg class="peak" viewBox="0 0 26 22" fill="currentColor" aria-hidden="true"><path d="M1 21 10 5l4 6 3-4 8 14z"/><path d="M14 2v5" stroke="currentColor" stroke-width="1.6"/><path d="M14 2h5l-1.5 1.5L19 5h-5z"/></svg>
+              <svg class="hiker" id="hiker" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="#f8f3e6" stroke="#3d5a3a" stroke-width="2"/><circle cx="11" cy="11" r="3.4" fill="#3d5a3a"/></svg>
+            </div>
+          </div>
+
+          <div class="field" data-req>
+            <label class="q" for="f-name"><span class="num">1</span>我叫什麼名字？<span class="req">*</span></label>
+            <input class="input" id="f-name" name="name" autocomplete="name" placeholder="請輸入姓名">
+            <div class="err-msg">請填寫姓名</div>
+          </div>
+
+          <div class="field" data-req data-group="campus">
+            <div class="q"><span class="num">2</span>校園<span class="req">*</span></div>
+            <div class="opts">
+              <div class="opt"><input type="radio" name="campus" id="c1" value="朝陽亞洲"><label for="c1">朝陽亞洲</label></div>
+              <div class="opt"><input type="radio" name="campus" id="c2" value="勤益"><label for="c2">勤益</label></div>
+              <div class="opt"><input type="radio" name="campus" id="c3" value="__other_option__"><label for="c3">其他</label></div>
+            </div>
+            <div class="other-input" id="otherWrap"><input class="input" id="f-other" placeholder="請填寫學校或單位" aria-label="其他校園"></div>
+            <div class="err-msg">請選擇校園</div>
+          </div>
+
+          <div class="field" data-req data-group="gender">
+            <div class="q"><span class="num">3</span>性別<span class="req">*</span></div>
+            <div class="opts">
+              <div class="opt"><input type="radio" name="gender" id="g1" value="弟兄"><label for="g1">弟兄</label></div>
+              <div class="opt"><input type="radio" name="gender" id="g2" value="姊妹"><label for="g2">姊妹</label></div>
+            </div>
+            <div class="err-msg">請選擇性別</div>
+          </div>
+
+          <div class="field" data-req data-group="role">
+            <div class="q"><span class="num">4</span>身份<span class="req">*</span></div>
+            <div class="opts">
+              <div class="opt"><input type="radio" name="role" id="r1" value="學生"><label for="r1">學生<small>650 元</small></label></div>
+              <div class="opt"><input type="radio" name="role" id="r2" value="照顧家"><label for="r2">照顧家<small>900 元</small></label></div>
+              <div class="opt"><input type="radio" name="role" id="r3" value="全時間"><label for="r3">全時間<small>900 元</small></label></div>
+              <div class="opt"><input type="radio" name="role" id="r4" value="__other_option__"><label for="r4">其他</label></div>
+            </div>
+            <div class="other-input" id="roleOtherWrap"><input class="input" id="f-role-other" placeholder="請填寫身份" aria-label="其他身份"></div>
+            <div class="err-msg">請選擇身份</div>
+          </div>
+
+          <div class="field" data-req>
+            <label class="q" for="f-phone"><span class="num">5</span>手機號碼<span class="req">*</span></label>
+            <input class="input" id="f-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="0912-345678" maxlength="11">
+            <div class="err-msg">請輸入 10 碼手機號碼（09 開頭）</div>
+          </div>
+
+          <div class="field" data-req>
+            <label class="q" for="f-id"><span class="num">6</span>身分證字號<span class="req">*</span></label>
+            <p class="hint">保險用，只會送到主辦的報名表。</p>
+            <input class="input" id="f-id" name="nid" autocomplete="off" autocapitalize="characters" placeholder="A123456789" maxlength="10">
+            <div class="err-msg">格式應為 1 個英文字母＋9 碼數字</div>
+          </div>
+
+          <div class="field" data-req>
+            <label class="q" for="f-bday"><span class="num">7</span>出生年月日<span class="req">*</span></label>
+            <input class="input" id="f-bday" name="bday" type="date" min="1930-01-01" max="2015-12-31">
+            <div class="err-msg">請選擇出生日期</div>
+          </div>
+
+          <div class="field" data-req data-group="stop">
+            <div class="q"><span class="num">8</span>哪一站上車？<span class="req">*</span></div>
+            <div class="opts">
+              <div class="opt"><input type="radio" name="stop" id="s1" value="霧峰郵局"><label for="s1">霧峰郵局<small>17:00</small></label></div>
+              <div class="opt"><input type="radio" name="stop" id="s2" value="中聯百貨 太平店"><label for="s2">中聯百貨 太平店<small>17:40</small></label></div>
+            </div>
+            <div class="err-msg">請選擇上車地點</div>
+          </div>
+
+          <div class="field">
+            <label class="q" for="f-note"><span class="num">9</span>備註</label>
+            <p class="hint">若有不可抗因素無法搭乘遊覽車，請務必填寫清楚，並與服事者交通。</p>
+            <textarea class="input" id="f-note" name="note" placeholder="選填"></textarea>
+          </div>
+
+          <button class="cta submit" type="submit"><span class="spin"></span><span class="lbl">送出報名</span></button>
+          <p class="pay-msg" id="regMsg" role="alert"></p>
+          <p class="fine">送出後就算報名成功，之後再匯款、上傳截圖即可。</p>
+        </form>
+
+        <div class="success" id="success" role="status" aria-live="polite">
+          <svg class="check" viewBox="0 0 110 110"><circle cx="55" cy="55" r="50"/><path d="M33 57l15 15 30-32"/></svg>
+          <h3>已收到報名！</h3>
+          <p>目前狀態：<b style="color:#b58614">已報名・未繳費</b><br>匯款後到下方上傳截圖，就完成報名。</p>
+          <div class="summary" id="summary"></div>
+          <button class="ghost" id="again" type="button">再幫另一位報名</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 繳費 -->
+  <section id="pay">
+    <div class="wrap" style="max-width:720px">
+      <div class="reveal">
+        <div class="eyebrow">PAYMENT</div>
+        <h2>匯款並上傳截圖</h2>
+      </div>
+      <div class="form-card reveal" id="payCard">
+        <div class="bank">
+          <div><div class="k">銀行代碼</div><div class="v">700 中華郵政</div></div>
+          <button class="copy" type="button" data-copy="700">複製</button>
+          <div><div class="k">網銀或 ATM 匯款帳號（大專組帳戶）</div><div class="v">700001022846870</div></div>
+          <button class="copy" type="button" data-copy="700001022846870">複製</button>
+          <div class="amt"><span class="k" id="amtLabel">金額：學生 650 元／非學生 900 元</span><b id="amt"></b></div>
+        </div>
+
+        <form id="payForm" novalidate>
+          <div id="lookupBox">
+            <div class="q"><span class="num">?</span>是誰要上傳？</div>
+            <p class="hint">輸入報名時的名字和手機末四碼。</p>
+            <div class="lookup">
+              <input class="input" id="p-name" placeholder="名字" aria-label="名字">
+              <input class="input" id="p-phone4" placeholder="手機末四碼" inputmode="numeric" maxlength="4" aria-label="手機末四碼">
+            </div>
+          </div>
+          <div id="whoBox" class="hint" style="display:none;margin:0 0 12px"></div>
+
+          <div class="q"><span class="num">✓</span>匯款截圖或拍照證明<span class="req">*</span></div>
+          <label class="drop" id="drop">
+            <input type="file" id="p-file" accept="image/*">
+            <span class="up"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span>
+            <b>點這裡選擇圖片，或拖曳進來</b>
+            <small>手機可以直接拍照</small>
+          </label>
+          <button class="cta submit" type="submit" style="margin-top:18px"><span class="spin"></span><span class="lbl">上傳截圖，完成報名</span></button>
+          <p class="pay-msg" id="payMsg" role="alert"></p>
+        </form>
+
+        <div class="success" id="paid" role="status" aria-live="polite">
+          <svg class="check" viewBox="0 0 110 110"><circle cx="55" cy="55" r="50"/><path d="M33 57l15 15 30-32"/></svg>
+          <h3>報名完成！</h3>
+          <p id="paidSub">已收到匯款截圖，11/13 見，記得準時到上車地點。</p>
+          <button class="ghost" id="payAgain" type="button">幫另一位上傳</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 聯絡 -->
+  <section>
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">CONTACT</div>
+        <h2>有問題找我們</h2>
+      </div>
+      <div class="contacts">
+        <a class="contact reveal" href="tel:0930116487">
+          <span class="avatar">恩</span>
+          <div><b>吳獻恩</b><span>0930-116487</span></div>
+          <span class="call"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        </a>
+        <a class="contact reveal" href="tel:0922444909" style="transition-delay:.1s">
+          <span class="avatar">謙</span>
+          <div><b>林宇謙</b><span>0922-444909</span></div>
+          <span class="call"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 報名名單 -->
+  <section id="crowd-sec" style="padding-bottom:0">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">WHO'S COMING</div>
+        <div class="crowd-head">
+          <h2 style="margin-bottom:8px">一起上山的人</h2>
+          <div class="legend"><span><i style="background:#e2b13c"></i>已報名・未繳費</span><span><i style="background:#5f8f52"></i>報名完成</span></div>
+        </div>
+        <p class="tally" id="tally">讀取中…</p>
+      </div>
+    </div>
+    <div class="crowd" id="crowd" aria-live="polite"></div>
+  </section>
+
+  <footer>
+    <div class="ridges" aria-hidden="true" data-ridge="footer"></div>
+    <p class="verse">贏得基督　達到傑出的復活</p>
+    <p>2026下 全時間訓練呼召聚會・台中場</p>
+  </footer>
+</main>
+
+
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const dpr = Math.min(devicePixelRatio || 1, 2);
+
+/* ---------- 標題墨跡浮現 ---------- */
+$$('.band .title span').forEach((s, i) => s.style.animationDelay = (1.6 + i * .18) + 's');
+
+/* ---------- 雲霧（滑鼠可撥開） ---------- */
+const hero = $('.hero'), mist = $('#mist'), mx = mist.getContext('2d');
+let MW, MH, puffs = [];
+const ptr = { x: -9999, y: -9999 };
+function mistSize() {
+  const r = hero.getBoundingClientRect();
+  MW = mist.width = r.width * dpr; MH = mist.height = r.height * dpr;
+  const n = Math.round(Math.max(14, r.width / 45));
+  puffs = Array.from({ length: n }, () => newPuff(true));
+}
+function newPuff(anywhere) {
+  const r = (Math.random() * 110 + 70) * dpr;
+  return {
+    x: anywhere ? Math.random() * MW : -r, y: MH * (.45 + Math.random() * .55),
+    r, vx: (Math.random() * .25 + .08) * dpr, a: Math.random() * .22 + .12, ox: 0, oy: 0
+  };
+}
+mistSize(); addEventListener('resize', mistSize);
+hero.addEventListener('pointermove', e => {
+  const r = hero.getBoundingClientRect();
+  ptr.x = (e.clientX - r.left) * dpr; ptr.y = (e.clientY - r.top) * dpr;
+  // 照片視差
+  const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+  $('.photo-inner').style.transform = `translate(${px * -12}px,${py * -8}px)`;
+});
+hero.addEventListener('pointerleave', () => { ptr.x = ptr.y = -9999; $('.photo-inner').style.transform = ''; });
+function drawMist() {
+  mx.clearRect(0, 0, MW, MH);
+  for (const p of puffs) {
+    p.x += p.vx;
+    const dx = p.x + p.ox - ptr.x, dy = p.y + p.oy - ptr.y, d = Math.hypot(dx, dy), R = 170 * dpr;
+    if (d < R) { const f = (1 - d / R) * 6 * dpr; p.ox += dx / d * f; p.oy += dy / d * f; }
+    p.ox *= .96; p.oy *= .96;
+    if (p.x - p.r > MW) Object.assign(p, newPuff(false));
+    const g = mx.createRadialGradient(p.x + p.ox, p.y + p.oy, 0, p.x + p.ox, p.y + p.oy, p.r);
+    g.addColorStop(0, `rgba(255,255,255,${p.a})`); g.addColorStop(1, 'rgba(255,255,255,0)');
+    mx.fillStyle = g; mx.beginPath(); mx.arc(p.x + p.ox, p.y + p.oy, p.r, 0, 7); mx.fill();
+  }
+  requestAnimationFrame(drawMist);
+}
+if (!reduce) requestAnimationFrame(drawMist);
+
+/* 飛鳥 */
+const birds = $('.birds');
+if (!reduce) for (let i = 0; i < 5; i++) {
+  const b = document.createElement('span'); b.className = 'bird';
+  b.innerHTML = '<svg viewBox="0 0 26 10"><path d="M1 8 Q7 1 13 7 Q19 1 25 8"/></svg>';
+  b.style.left = '-40px'; b.style.top = (14 + Math.random() * 22) + '%';
+  b.style.animationDuration = (22 + Math.random() * 14) + 's';
+  b.style.animationDelay = (3 + i * 2.6 + Math.random() * 2) + 's';
+  b.style.transform = `scale(${.6 + Math.random() * .6})`;
+  b.firstChild.style.animationDuration = (.35 + Math.random() * .3) + 's';
+  birds.appendChild(b);
+}
+
+/* ---------- 山脊（滾動視差） ---------- */
+const RIDGE = [
+  { c: '#a9c3d2', o: .55, amp: .55, base: .38, sp: .05 },
+  { c: '#7f9fb1', o: .6, amp: .5, base: .55, sp: .1 },
+  { c: '#5b7b6a', o: .75, amp: .4, base: .7, sp: .16 },
+  { c: '#3d5a3a', o: .9, amp: .3, base: .84, sp: .24 }
+];
+function ridgePath(seed, amp, base) {
+  let s = seed, d = `M0 100 L0 ${base * 100}`;
+  const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  for (let x = 0; x <= 1000; x += 40) {
+    const y = base * 100 - (Math.sin(x / 130 + seed) * .5 + rnd() * .7) * amp * 60;
+    d += ` L${x} ${y.toFixed(1)}`;
+  }
+  return d + ' L1000 100 Z';
+}
+$$('[data-ridge]').forEach((el, k) => {
+  const footer = el.dataset.ridge === 'footer';
+  const layers = footer ? [...RIDGE.slice(1), { c: '#2f4430', o: 1, amp: .2, base: .92, sp: .3 }] : RIDGE;
+  el.innerHTML = `<svg viewBox="0 0 1000 100" preserveAspectRatio="none">${layers.map((l, i) =>
+    `<path d="${ridgePath(k * 7 + i * 3 + 1, l.amp, l.base)}" fill="${l.c}" fill-opacity="${l.o}" data-sp="${l.sp}"/>`).join('')}</svg>`;
+});
+function ridgeScroll() {
+  $$('[data-ridge]').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const t = (r.top - innerHeight / 2);
+    $$('path', el).forEach(p => p.style.transform = `translateX(${t * p.dataset.sp * .25}px)`);
+  });
+}
+if (!reduce) { addEventListener('scroll', ridgeScroll, { passive: true }); ridgeScroll(); }
+
+/* ---------- 倒數 ---------- */
+const target = new Date('2026-11-13T17:00:00+08:00').getTime();
+const prev = {};
+function cd() {
+  let left = Math.max(0, target - Date.now());
+  const v = { d: Math.floor(left / 864e5) };
+  left %= 864e5; v.h = Math.floor(left / 36e5); left %= 36e5; v.m = Math.floor(left / 6e4); v.s = Math.floor(left % 6e4 / 1e3);
+  for (const u in v) {
+    const el = $(`.cd .n[data-u="${u}"]`), s = String(v[u]).padStart(2, '0');
+    if (prev[u] !== s) { el.textContent = s; el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip'); prev[u] = s; }
+  }
+}
+cd(); setInterval(cd, 1000);
+
+/* ---------- 滾動出現 + 數字 ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in'); io.unobserve(e.target);
+  $$('[data-count]', e.target).forEach(countUp);
+  if (e.target.matches('.tabs')) setTimeout(beam, 200);
+}), { threshold: .15 });
+$$('.reveal').forEach(el => io.observe(el));
+function countUp(el) {
+  const to = +el.dataset.count, t0 = performance.now();
+  (function f(now) {
+    const p = Math.min(1, (now - t0) / 1400);
+    el.firstChild.textContent = Math.round(to * (1 - Math.pow(1 - p, 4)));
+    if (p < 1) requestAnimationFrame(f);
+  })(t0);
+}
+
+/* 卡片傾斜 */
+$$('.tilt').forEach(c => {
+  c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    c.style.setProperty('--mx', x * 100 + '%'); c.style.setProperty('--my', y * 100 + '%');
+    if (!reduce) c.style.transform = `perspective(800px) rotateY(${(x - .5) * 10}deg) rotateX(${(.5 - y) * 10}deg) translateY(-4px)`;
+  });
+  c.addEventListener('pointerleave', () => c.style.transform = '');
+});
+/* 磁吸按鈕 */
+$$('.magnet').forEach(b => {
+  b.addEventListener('pointermove', e => {
+    const r = b.getBoundingClientRect();
+    b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .3}px)`;
+  });
+  b.addEventListener('pointerleave', () => b.style.transform = '');
+});
+
+/* ---------- 行程分頁 ---------- */
+const ind = $('.tab-ind');
+const moveInd = btn => { ind.style.width = btn.offsetWidth + 'px'; ind.style.transform = `translateX(${btn.offsetLeft}px)`; };
+function beam() {
+  const panel = $('.panel.on'), b = $('.timeline .beam');
+  b.style.transition = 'none'; b.style.height = '0'; void b.offsetHeight;
+  b.style.transition = ''; b.style.height = (panel.offsetHeight - 16) + 'px';
+}
+$$('.tab').forEach(t => t.addEventListener('click', () => {
+  $$('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+  $$('.panel').forEach(p => p.classList.toggle('on', p.id === t.dataset.p));
+  moveInd(t); beam();
+}));
+const sel = () => $('.tab[aria-selected="true"]');
+requestAnimationFrame(() => moveInd(sel()));
+document.fonts && document.fonts.ready.then(() => moveInd(sel()));
+addEventListener('resize', () => { moveInd(sel()); beam(); });
+
+/* ---------- 落葉 ---------- */
+const lf = $('#leaves'), lx = lf.getContext('2d');
+let leaves = [], running = false;
+const fitL = () => { lf.width = innerWidth * dpr; lf.height = innerHeight * dpr; };
+fitL(); addEventListener('resize', fitL);
+const LC = ['#3d5a3a', '#6f8450', '#b0803f', '#94573a', '#c9a35b', '#3f6a86', '#8fae7a'];
+function burst(x, y, n = 60, power = 1) {
+  if (reduce) return;
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + (Math.random() - .5) * Math.PI * 1.3, s = (Math.random() * 6 + 3) * power;
+    leaves.push({ x: x * dpr, y: y * dpr, vx: Math.cos(a) * s * dpr, vy: Math.sin(a) * s * dpr,
+      size: (Math.random() * 5 + 5) * dpr, rot: Math.random() * 6, vr: (Math.random() - .5) * .2,
+      sway: Math.random() * 6, c: LC[i % LC.length], life: 1 });
+  }
+  if (!running) { running = true; requestAnimationFrame(fall); }
+}
+function leaf(l) {
+  lx.save(); lx.translate(l.x, l.y); lx.rotate(l.rot); lx.globalAlpha = Math.max(0, l.life);
+  lx.fillStyle = l.c; lx.beginPath();
+  lx.moveTo(0, -l.size); lx.quadraticCurveTo(l.size * .7, 0, 0, l.size); lx.quadraticCurveTo(-l.size * .7, 0, 0, -l.size);
+  lx.fill(); lx.strokeStyle = 'rgba(255,255,255,.35)'; lx.lineWidth = dpr * .6;
+  lx.beginPath(); lx.moveTo(0, -l.size * .8); lx.lineTo(0, l.size * .8); lx.stroke(); lx.restore();
+}
+function fall(t) {
+  lx.clearRect(0, 0, lf.width, lf.height);
+  leaves = leaves.filter(l => l.life > 0 && l.y < lf.height + 30);
+  for (const l of leaves) {
+    l.vy = Math.min(l.vy + .12 * dpr, 2.2 * dpr); l.vx *= .97;
+    l.x += l.vx + Math.sin(t / 400 + l.sway) * .8 * dpr; l.y += l.vy;
+    l.rot += l.vr + Math.sin(t / 300 + l.sway) * .03; l.life -= .004;
+    leaf(l);
+  }
+  if (leaves.length) requestAnimationFrame(fall); else { running = false; lx.clearRect(0, 0, lf.width, lf.height); }
+}
+function celebrate() {
+  burst(innerWidth * .2, innerHeight * .75, 70, 1.6);
+  setTimeout(() => burst(innerWidth * .8, innerHeight * .75, 70, 1.6), 200);
+  setTimeout(() => burst(innerWidth * .5, innerHeight * .55, 90, 1.4), 420);
+}
+
+/* ---------- 攜帶物品 ---------- */
+const items = ['健保卡', '常備藥品', '水壺', '雨具', '筆', '盥洗衣物', '拖鞋'];
+let checked = [];
+try { checked = JSON.parse(localStorage.getItem('pack') || '[]'); } catch (e) {}
+const pack = $('#pack');
+items.forEach(it => {
+  const c = document.createElement('button');
+  c.type = 'button'; c.className = 'chip' + (checked.includes(it) ? ' on' : '');
+  c.setAttribute('aria-pressed', checked.includes(it));
+  c.innerHTML = `<span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="t">${it}</span>`;
+  c.addEventListener('click', e => {
+    const on = c.classList.toggle('on'); c.setAttribute('aria-pressed', on);
+    checked = on ? [...checked, it] : checked.filter(x => x !== it);
+    try { localStorage.setItem('pack', JSON.stringify(checked)); } catch (err) {}
+    if (on) burst(e.clientX, e.clientY, 10, .7);
+    packMeta(on);
+  });
+  pack.appendChild(c);
+});
+function packMeta(justOn) {
+  const n = checked.length, m = $('#packMeta');
+  m.innerHTML = n === 0 ? '點一下打勾，確認東西都帶齊了。'
+    : n === items.length ? '<b>全部帶齊了！</b> 準備出發 🎒'
+    : `已準備 <b>${n}</b> / ${items.length} 樣`;
+  if (justOn && n === items.length) { const r = pack.getBoundingClientRect(); burst(r.left + r.width / 2, r.top, 50); }
+}
+packMeta();
+
+/* ---------- 後端設定 ----------
+   部署 apps-script/Code.gs 後，把「網頁應用程式網址」貼在這裡。
+   留空時是示範模式：資料只存在這台瀏覽器，不會送出。 */
+const API_URL = 'https://script.google.com/macros/s/AKfycbwrKxeVI0fbs7ZluiHyU_4gRg_twfM2aB_BtXdR3P1_02Jm5MUCqpTuxu2v8LDoblL4HA/exec';
+const DEMO = !API_URL;
+
+const store = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+
+const api = {
+  async list() {
+    if (DEMO) return store.get('demoPeople', []).map(p => ({ name: p.name, gender: p.gender, paid: p.paid }));
+    const r = await fetch(API_URL + '?action=list', { cache: 'no-store' });
+    const j = await r.json(); if (!j.ok) throw new Error(j.error); return j.people;
+  },
+  async post(body) {
+    if (DEMO) {
+      await new Promise(r => setTimeout(r, 900));
+      const people = store.get('demoPeople', []);
+      if (body.action === 'register') {
+        const id = Math.random().toString(36).slice(2, 14);
+        people.push({ id, name: body.name, gender: body.gender, phone: body.phone.replace(/\D/g, ''), paid: false });
+        store.set('demoPeople', people); return { ok: true, id };
+      }
+      const p = [...people].reverse().find(p => body.id ? p.id === body.id : p.name === body.name && p.phone.slice(-4) === body.phone4);
+      if (!p) return { ok: false, error: '找不到這筆報名，請確認名字和手機末四碼' };
+      p.paid = true; store.set('demoPeople', people); return { ok: true, name: p.name };
+    }
+    // text/plain 避免跨網域預檢，Apps Script 才收得到
+    const r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
+    return r.json();
+  }
+};
+
+/* ---------- 我的報名狀態（記在這台手機） ---------- */
+let mine = store.get('myReg', null);   // {id, name, role, paid}
+const fee = role => role === '學生' ? 650 : 900;
+function renderMine() {
+  const box = $('#myStatus');
+  $('#st1').className = mine ? 'ok' : 'on';
+  $('#st2').className = mine ? (mine.paid ? 'ok' : 'on') : '';
+  $('#st3').className = mine && mine.paid ? 'ok' : '';
+  $('#amt').textContent = mine && !mine.paid ? fee(mine.role) + ' 元' : '';
+  $('#amtLabel').textContent = mine && !mine.paid ? `${mine.name}（${mine.role}）應繳金額` : '金額：學生 650 元／非學生 900 元';
+  if (!mine) { box.classList.remove('on'); setPayWho(); return; }
+  box.className = 'status on ' + (mine.paid ? 'paid' : 'unpaid');
+  $('#myDot').textContent = mine.paid ? '✓' : '!';
+  $('#myTitle').textContent = mine.paid ? `${mine.name}・報名完成` : `${mine.name}・已報名，未繳費`;
+  $('#mySub').innerHTML = mine.paid ? '已收到匯款截圖，11/13 見！' : `請匯款 ${fee(mine.role)} 元，再上傳截圖。<button class="reset" type="button" id="notMe">不是我</button>`;
+  $('#myGo').style.display = mine.paid ? 'none' : '';
+  const nm = $('#notMe'); if (nm) nm.onclick = () => { mine = null; store.set('myReg', null); renderMine(); };
+  setPayWho();
+}
+
+/* ---------- 報名表 ---------- */
+const form = $('#form');
+const F = { name: $('#f-name'), phone: $('#f-phone'), nid: $('#f-id'), bday: $('#f-bday'), other: $('#f-other'), roleOther: $('#f-role-other'), note: $('#f-note') };
+const radio = n => (form.querySelector(`input[name="${n}"]:checked`) || {}).value || '';
+const pick = (n, otherEl) => radio(n) === '__other_option__' ? otherEl.value.trim() : radio(n);
+
+F.phone.addEventListener('input', () => {
+  const d = F.phone.value.replace(/\D/g, '').slice(0, 10);
+  F.phone.value = d.length > 4 ? d.slice(0, 4) + '-' + d.slice(4) : d;
+});
+F.nid.addEventListener('input', () => { F.nid.value = F.nid.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
+
+const rules = {
+  name: () => F.name.value.trim().length > 0,
+  campus: () => !!pick('campus', F.other),
+  gender: () => !!radio('gender'),
+  role: () => !!pick('role', F.roleOther),
+  phone: () => /^09\d{8}$/.test(F.phone.value.replace(/\D/g, '')),
+  nid: () => /^[A-Z][0-9A-D]\d{8}$/.test(F.nid.value),
+  bday: () => !!F.bday.value,
+  stop: () => !!radio('stop')
+};
+const TOTAL = Object.keys(rules).length;
+const inputs = { name: F.name, phone: F.phone, nid: F.nid, bday: F.bday };
+const fieldOf = k => inputs[k] ? inputs[k].closest('.field') : $(`.field[data-group="${k}"]`);
+
+let lastDone = 0;
+function refresh(showFor) {
+  let done = 0;
+  for (const k in rules) {
+    const ok = rules[k](), f = fieldOf(k);
+    f.classList.toggle('done', ok);
+    if (ok) { f.classList.remove('bad'); done++; }
+    if (showFor === k && !ok) f.classList.add('bad');
+  }
+  const pct = done / TOTAL * 100;
+  $('#pct').textContent = done === TOTAL ? `登頂！${TOTAL} / ${TOTAL}` : `${done} / ${TOTAL}`;
+  $('#fill').style.width = pct + '%';
+  $('#hiker').style.left = `calc(${pct}% - ${pct / 100 * 22}px + 11px)`;
+  $('#trail').classList.toggle('done', done === TOTAL);
+  if (done === TOTAL && lastDone < TOTAL) { const r = $('#trail').getBoundingClientRect(); burst(r.right - 12, r.top, 30, .9); }
+  lastDone = done;
+}
+form.addEventListener('input', () => refresh());
+form.addEventListener('change', e => {
+  const map = { campus: ['#otherWrap', F.other], role: ['#roleOtherWrap', F.roleOther] }[e.target.name];
+  if (map) {
+    const on = radio(e.target.name) === '__other_option__';
+    $(map[0]).classList.toggle('on', on);
+    if (on) setTimeout(() => map[1].focus(), 250);
+  }
+  refresh();
+});
+Object.entries(inputs).forEach(([k, el]) => el.addEventListener('blur', () => { if (el.value) refresh(k); }));
+
+function busy(btn, on, label) { btn.disabled = on; $('.lbl', btn).textContent = label; }
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  let first = null;
+  for (const k in rules) if (!rules[k]()) {
+    const f = fieldOf(k); f.classList.add('bad'); f.classList.remove('shake'); void f.offsetWidth; f.classList.add('shake');
+    first = first || f;
+  }
+  if (first) { first.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+  const body = {
+    action: 'register', name: F.name.value.trim(), campus: pick('campus', F.other), gender: radio('gender'),
+    role: pick('role', F.roleOther), phone: F.phone.value, nid: F.nid.value, bday: F.bday.value,
+    stop: radio('stop'), note: F.note.value.trim()
+  };
+  const btn = $('.submit', form); busy(btn, true, '送出中…'); $('#regMsg').textContent = '';
+  try {
+    const res = await api.post(body);
+    if (!res.ok) throw new Error(res.error || '送出失敗');
+    mine = { id: res.id, name: body.name, role: body.role, paid: false };
+    store.set('myReg', mine);
+    const rows = [['姓名', body.name], ['身份', body.role], ['上車地點', body.stop], ['應繳金額', fee(body.role) + ' 元']];
+    $('#summary').innerHTML = rows.map(([a]) => `<div><span>${a}</span><b></b></div>`).join('');
+    $$('#summary b').forEach((b, i) => b.textContent = rows[i][1]);
+    form.style.display = 'none'; $('#success').classList.add('on');
+    renderMine(); celebrate(); loadCrowd(body.name);
+    $('#success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (err) {
+    $('#regMsg').textContent = '沒有送出成功：' + err.message + '。請再試一次，或聯絡服事者。';
+  } finally { busy(btn, false, '送出報名'); }
+});
+$('#again').addEventListener('click', () => {
+  form.reset(); $$('.field', form).forEach(f => f.classList.remove('done', 'bad'));
+  $$('.other-input', form).forEach(o => o.classList.remove('on'));
+  $('#success').classList.remove('on'); form.style.display = ''; lastDone = 0; refresh();
+  mine = null; store.set('myReg', null); renderMine();
+  form.scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ---------- 繳費 ---------- */
+$$('.copy').forEach(b => b.addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); } catch (e) {
+    const t = document.createElement('textarea'); t.value = b.dataset.copy; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove();
+  }
+  b.textContent = '已複製'; b.classList.add('done');
+  setTimeout(() => { b.textContent = '複製'; b.classList.remove('done'); }, 1600);
+}));
+
+let payTarget = null;   // {name} 從小人點進來時
+function setPayWho() {
+  const useMine = mine && !mine.paid && !payTarget;
+  $('#lookupBox').style.display = useMine ? 'none' : '';
+  $('#whoBox').style.display = useMine ? '' : 'none';
+  if (useMine) $('#whoBox').innerHTML = `幫 <b></b> 上傳截圖。<button class="reset" type="button" id="other">幫別人上傳</button>`;
+  if (useMine) { $('#whoBox b').textContent = mine.name; $('#other').onclick = () => { payTarget = { name: '' }; setPayWho(); $('#p-name').focus(); }; }
+}
+
+const drop = $('#drop');
+const fileIn = { set value(v) { const i = $('#p-file'); if (i) i.value = v; } };
+let fileData = null;
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => { if (e.dataTransfer.files[0]) useFile(e.dataTransfer.files[0]); });
+drop.addEventListener('change', e => { if (e.target.files && e.target.files[0]) useFile(e.target.files[0]); });
+
+// 縮成最長邊 1600px 的 JPEG，手機照片才不會太大
+function useFile(f) {
+  $('#payMsg').textContent = '';
+  if (!/^image\//.test(f.type)) { $('#payMsg').textContent = '請選擇圖片檔'; return; }
+  const img = new Image(), url = URL.createObjectURL(f);
+  img.onload = () => {
+    const s = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    fileData = c.toDataURL('image/jpeg', .85);
+    URL.revokeObjectURL(url);
+    drop.classList.add('has');
+    drop.querySelectorAll(':scope > :not(input)').forEach(n => n.remove());
+    drop.insertAdjacentHTML('beforeend', `<img alt="匯款截圖預覽" src="${fileData}"><span class="swap">換一張</span>`);
+    burst(innerWidth / 2, drop.getBoundingClientRect().top + 40, 14, .6);
+  };
+  img.onerror = () => { $('#payMsg').textContent = '這張圖片打不開，請換一張（iPhone 可改用截圖）'; };
+  img.src = url;
+}
+
+$('#payForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('#payMsg'); msg.textContent = '';
+  const useMine = mine && !mine.paid && !payTarget;
+  const body = { action: 'pay', file: fileData };
+  if (useMine) body.id = mine.id;
+  else {
+    body.name = $('#p-name').value.trim(); body.phone4 = $('#p-phone4').value.replace(/\D/g, '');
+    if (!body.name || body.phone4.length !== 4) { msg.textContent = '請輸入名字和手機末四碼'; $('#lookupBox').classList.remove('shake'); void drop.offsetWidth; $('#lookupBox').classList.add('field', 'shake'); return; }
+  }
+  if (!fileData) { msg.textContent = '請先選擇匯款截圖'; drop.classList.remove('shake'); void drop.offsetWidth; drop.classList.add('shake'); return; }
+  const btn = $('.submit', $('#payForm')); busy(btn, true, '上傳中…');
+  try {
+    const res = await api.post(body);
+    if (!res.ok) throw new Error(res.error || '上傳失敗');
+    if (useMine || (mine && res.name === mine.name)) { mine.paid = true; store.set('myReg', mine); }
+    $('#paidSub').textContent = `已收到 ${res.name} 的匯款截圖，11/13 見，記得準時到上車地點。`;
+    $('#payForm').style.display = 'none'; $('#paid').classList.add('on');
+    payTarget = null; renderMine(); celebrate(); loadCrowd(res.name);
+  } catch (err) {
+    msg.textContent = err.message;
+  } finally { busy(btn, false, '上傳截圖，完成報名'); }
+});
+const DROP_HTML = drop.innerHTML;
+function resetPay() {
+  fileData = null; fileIn.value = ''; drop.classList.remove('has'); drop.innerHTML = DROP_HTML;
+  $('#p-name').value = ''; $('#p-phone4').value = ''; $('#payMsg').textContent = '';
+  $('#paid').classList.remove('on'); $('#payForm').style.display = '';
+}
+$('#payAgain').addEventListener('click', () => { resetPay(); payTarget = { name: '' }; setPayWho(); });
+
+/* ---------- 報名者小人 ---------- */
+function personSVG(sister) {
+  const hair = sister
+    ? '<path d="M27 26c0-11 7-18 15-18s15 7 15 18c0 6-2 10-3 13l-2-12c-3 3-8 4-14 3-4 0-7-2-9-4l-1 13c-1-3-1-8-1-13z" fill="#3b2f24"/>'
+    : '<path d="M28 24c0-9 6-15 14-15s14 6 14 15c-3-4-7-6-14-6s-11 2-14 6z" fill="#3b2f24"/>';
+  return `<svg viewBox="0 0 84 116" aria-hidden="true"><g class="body">
+    <ellipse cx="42" cy="112" rx="24" ry="4" fill="rgba(60,50,30,.18)"/>
+    <rect x="31" y="92" width="9" height="20" rx="4.5" fill="var(--c2)"/><rect x="44" y="92" width="9" height="20" rx="4.5" fill="var(--c2)"/>
+    <path d="M15 66c0-14 11-22 27-22s27 8 27 22v26c0 4-3 6-7 6H22c-4 0-7-2-7-6z" fill="var(--c)"/>
+    <rect class="arm-l" x="9" y="54" width="9" height="30" rx="4.5" fill="var(--c2)" transform="rotate(14 13 58)"/>
+    <rect class="arm-r" x="66" y="54" width="9" height="30" rx="4.5" fill="var(--c2)" transform="rotate(-14 70 58)"/>
+    <circle cx="42" cy="27" r="15" fill="#f1d3b3"/>${hair}
+    <circle cx="36.5" cy="29" r="1.8" fill="#3b2f24"/><circle cx="47.5" cy="29" r="1.8" fill="#3b2f24"/>
+    <path d="M37.5 34.5q4.5 3.5 9 0" stroke="#b5694d" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  </g></svg>`;
+}
+let crowdTimer;
+async function loadCrowd(highlight) {
+  const box = $('#crowd'), tally = $('#tally');
+  let people;
+  try { people = await api.list(); } catch (e) { tally.textContent = '名單暫時讀不到，稍後再試。'; return; }
+  const paid = people.filter(p => p.paid).length;
+  tally.innerHTML = people.length
+    ? `已報名 <b>${people.length}</b> 人・報名完成 <b style="color:var(--ok)">${paid}</b> 人・未繳費 <b style="color:#b58614">${people.length - paid}</b> 人`
+    : '還沒有人報名，當第一個吧！';
+  box.innerHTML = '';
+  if (!people.length) { box.innerHTML = '<p class="crowd-empty">這裡會出現每一位報名的人</p>'; return; }
+  people.forEach((p, i) => {
+    const el = document.createElement('div');
+    el.className = 'person ' + (p.paid ? 'paid' : 'unpaid') + (p.name === highlight ? ' new' : '') + (mine && p.name === mine.name ? ' me' : '');
+    el.style.setProperty('--i', i);
+    el.innerHTML = personSVG(p.gender === '姊妹') + '<span class="nm"></span><span class="tip"></span>';
+    const nm = el.querySelector('.nm'); nm.textContent = p.name; if (p.name.length > 3) nm.classList.add('sm');
+    el.querySelector('.tip').textContent = mine && p.name === mine.name ? '這是你' : p.paid ? '報名完成' : '未繳費・點我上傳截圖';
+    if (!p.paid) {
+      el.tabIndex = 0; el.setAttribute('role', 'button'); el.setAttribute('aria-label', `${p.name}，未繳費，點擊上傳匯款截圖`);
+      const go = () => {
+        resetPay();
+        if (!(mine && mine.name === p.name && !mine.paid)) { payTarget = { name: p.name }; $('#p-name').value = p.name; } else payTarget = null;
+        setPayWho();
+        $('#pay').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => (payTarget ? $('#p-phone4') : drop).focus(), 700);
+      };
+      el.addEventListener('click', go);
+      el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    } else {
+      el.setAttribute('aria-label', `${p.name}，報名完成`);
+    }
+    box.appendChild(el);
+  });
+  clearTimeout(crowdTimer); crowdTimer = setTimeout(() => loadCrowd(), 60000);
+}
+
+if (DEMO) $('#crowd-sec .wrap').insertAdjacentHTML('beforeend', '<p class="demo">示範模式：還沒接上試算表，資料只存在這台瀏覽器。</p>');
+renderMine();
+refresh();
+loadCrowd();
+})();
+</script>
+</body>
+</html>
