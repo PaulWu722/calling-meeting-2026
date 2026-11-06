@@ -6,15 +6,17 @@
  *   POST {action:'register',…}  → 新增一列報名資料，回傳報名編號
  *   POST {action:'pay',…}       → 上傳匯款截圖到雲端硬碟，把連結寫回該列
  *   POST {action:'ask',…}       → 匿名提問，寫進「提問單」分頁（不記任何個人資料）
- *   每個動作都可帶 site：'taichung'（預設，「表單回覆 1」）或 'fengchia'（「逢甲報名」）
+ *   每個動作都可帶 site：'taichung'（預設，這份試算表）或 'fengchia'（另一份「逢甲報名」試算表）
+ *   提問單寫在各場自己的試算表裡
  *
  * 部署方式見同資料夾的 README.md。
  */
 
-// 每一場用自己的分頁；網頁送來的 site 決定寫到哪一頁（沒給就是台中場）
+// 網頁送來的 site 決定寫到哪一份試算表、哪一頁（沒給就是台中場）
+// book 留空 = 這支程式所在的試算表（台中場回覆）；有填 = 另一份試算表的 ID
 const SITES = {
-  taichung: { sheet: '表單回覆 1', label: '台中場' },
-  fengchia: { sheet: '逢甲報名', label: '逢甲場' }
+  taichung: { book: '', sheet: '表單回覆 1', label: '台中場' },
+  fengchia: { book: '1b4CTYNX_g53ofGdCGk6yYba7ShvIoKdgB0u9KaYhDgg', sheet: '逢甲報名', label: '逢甲場' }
 };
 const FOLDER_NAME = '呼召聚會 匯款截圖';
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
@@ -145,18 +147,17 @@ function ask_(b) {
     .filter(q => ASK_TOPICS.indexOf(q.topic) >= 0 && q.text);
   if (!items.length) return { ok: false, error: '請至少寫一個問題' };
 
-  const ss = SpreadsheetApp.getActive();
+  const ss = book_(b.site);
   let sh = ss.getSheetByName(ASK_SHEET);
-  if (!sh) {
-    sh = ss.insertSheet(ASK_SHEET);
-    sh.appendRow(['日期', '場次', '主題', '問題']);
+  if (!sh) sh = ss.insertSheet(ASK_SHEET);
+  if (sh.getLastColumn() === 0) {
+    sh.appendRow(['日期', '主題', '問題']);
     sh.setFrozenRows(1);
-    sh.setColumnWidth(4, 520);
+    sh.setColumnWidth(3, 520);
   }
   // 匿名：只記日期（不記時間）、主題、問題，不記名字或任何識別資料
   const day = Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyy/MM/dd');
-  const label = site_(b.site).label;
-  items.forEach(q => sh.appendRow([day, label, q.topic, q.text]));
+  items.forEach(q => sh.appendRow([day, q.topic, q.text]));
   return { ok: true, count: items.length };
 }
 
@@ -165,12 +166,17 @@ function site_(site) {
   return SITES[site] || SITES.taichung;
 }
 
+function book_(site) {
+  const id = site_(site).book;
+  return id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActive();
+}
+
 function sheet_(site) {
   const name = site_(site).sheet;
-  const ss = SpreadsheetApp.getActive();
+  const ss = book_(site);
   let sheet = ss.getSheetByName(name);
-  if (!sheet) {                                   // 新場次第一次用：建立分頁和標題列
-    sheet = ss.insertSheet(name);
+  if (!sheet) sheet = ss.insertSheet(name);
+  if (sheet.getLastColumn() === 0) {              // 新場次第一次用：寫入標題列
     sheet.appendRow(Object.keys(COL).map(k => COL[k]));
     sheet.setFrozenRows(1);
   }
