@@ -108,6 +108,8 @@ button,input,textarea{font:inherit;color:inherit}
   transform:translateX(-120%);animation:sweep 3.6s ease-in-out infinite;
 }
 @keyframes sweep{55%,100%{transform:translateX(120%)}}
+.ask-link{padding:13px 22px;border-radius:999px;border:1.5px solid rgba(61,90,58,.4);color:var(--forest);font-weight:700;text-decoration:none;transition:all .25s}
+.ask-link:hover{background:#e4e6d3;border-color:var(--forest)}
 .cta:hover{box-shadow:0 16px 34px -10px rgba(45,70,40,.85)}
 .cta svg{transition:transform .3s}
 .cta:hover svg{transform:translateY(3px)}
@@ -390,6 +392,32 @@ textarea.input{min-height:100px;resize:vertical}
 .crowd-empty{position:relative;z-index:1;align-self:center;color:var(--ink-mute);padding-bottom:40px}
 .demo{margin-top:14px;font-size:13px;color:var(--ink-mute);text-align:center}
 
+/* ---------- 匿名提問單 ---------- */
+.anon{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:#e4e6d3;color:var(--forest);font-size:14px;font-weight:700;margin:-12px 0 22px}
+.topics{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.topic{
+  position:relative;padding:24px 22px 18px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);
+  box-shadow:0 14px 30px -24px rgba(60,50,20,.5);transition:border-color .3s,box-shadow .3s,transform .3s;
+}
+.topic:focus-within{border-color:rgba(61,90,58,.45);box-shadow:0 22px 40px -24px rgba(45,70,40,.55);transform:translateY(-3px)}
+.topic.shake{animation:shake .45s}
+.topic .no{position:absolute;right:18px;top:10px;font-family:var(--brush);font-size:54px;line-height:1;color:rgba(176,128,63,.18);pointer-events:none}
+.topic h3{font-family:var(--brush);font-size:26px;letter-spacing:.06em;margin-bottom:2px}
+.topic p{font-size:14px;color:var(--ink-mute);margin-bottom:12px}
+.topic textarea{min-height:140px}
+.topic .cnt{text-align:right;font-size:12px;color:var(--ink-mute);margin-top:4px;font-variant-numeric:tabular-nums}
+.ask-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px}
+.ask-bar .cta{flex:1;justify-content:center;min-width:220px}
+.ask-bar .pay-msg{margin:0;flex-basis:100%}
+.ask-done{display:none;text-align:center;padding:30px 20px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line)}
+.ask-done.on{display:block;animation:pop .6s cubic-bezier(.3,1.5,.4,1)}
+.ask-done h3{font-family:var(--brush);font-size:30px;margin:6px 0 4px}
+.ask-done p{color:var(--ink-soft)}
+.plane{width:64px;height:64px;color:var(--forest);animation:planeIn 1s cubic-bezier(.2,.8,.2,1)}
+@keyframes planeIn{from{transform:translate(-60px,40px) rotate(-20deg);opacity:0}}
+.fly{position:fixed;z-index:60;width:40px;height:40px;color:var(--forest);pointer-events:none;animation:flyaway 1.3s cubic-bezier(.5,0,.6,1) forwards}
+@keyframes flyaway{to{transform:translate(60vw,-80vh) rotate(-25deg) scale(.4);opacity:0}}
+
 footer{position:relative;text-align:center;padding:0 16px 40px;color:#e8e2d0;font-size:14px;background:#2f4430}
 footer .ridges{margin:0 -16px;height:110px;background:var(--paper)}
 footer p{padding-top:6px}
@@ -414,6 +442,7 @@ footer .verse{font-family:var(--brush);font-size:22px;color:#f3eee3;letter-spaci
   .progress{margin:-26px -18px 22px;padding:16px 18px 12px}
   .tab{padding:9px 16px}
   .lookup{grid-template-columns:1fr}
+  .topics{grid-template-columns:1fr}
   .person{width:72px}
   .steps{font-size:12px}
   .cd{min-width:58px}
@@ -454,6 +483,7 @@ footer .verse{font-family:var(--brush);font-size:22px;color:#f3eee3;letter-spaci
         立即報名
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
+      <a class="ask-link" href="#ask">我想提問 →</a>
       <div class="countdown" aria-label="距離出發">
         <span class="cd-cap">距離出發</span>
         <div class="cd"><span class="n" data-u="d">--</span><span class="l">天</span></div>
@@ -703,6 +733,46 @@ footer .verse{font-family:var(--brush);font-size:22px;color:#f3eee3;letter-spaci
           <p id="paidSub">已收到匯款截圖，11/13 見，記得準時到上車地點。</p>
           <button class="ghost" id="payAgain" type="button">幫另一位上傳</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 匿名提問單 -->
+  <section id="ask">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="eyebrow">QUESTIONS</div>
+        <h2>提問單</h2>
+        <p class="anon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>匿名送出・隨時都可以填，不用先報名</p>
+        <p style="color:var(--ink-soft);margin:-8px 0 22px">對於以下兩個主題，請提出你想問的問題。可以只寫一題，也可以兩題都寫。</p>
+      </div>
+      <form id="askForm" novalidate>
+        <div class="topics">
+          <label class="topic reveal">
+            <span class="no">一</span>
+            <h3>真理追求</h3>
+            <p>關於真理、聖經、追求真理的問題</p>
+            <textarea class="input" name="q1" maxlength="1000" placeholder="我想問…"></textarea>
+            <div class="cnt"><span>0</span> / 1000</div>
+          </label>
+          <label class="topic reveal" style="transition-delay:.1s">
+            <span class="no">二</span>
+            <h3>如何愛主追求主</h3>
+            <p>關於愛主、追求主、日常生活中跟隨主的問題</p>
+            <textarea class="input" name="q2" maxlength="1000" placeholder="我想問…"></textarea>
+            <div class="cnt"><span>0</span> / 1000</div>
+          </label>
+        </div>
+        <div class="ask-bar">
+          <button class="cta submit" type="submit"><span class="spin"></span><span class="lbl">匿名送出問題</span></button>
+          <p class="pay-msg" id="askMsg" role="alert"></p>
+        </div>
+      </form>
+      <div class="ask-done" id="askDone" role="status" aria-live="polite">
+        <svg class="plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
+        <h3>問題送出了</h3>
+        <p id="askDoneSub">謝謝你的提問，不會記錄你是誰。</p>
+        <button class="ghost" id="askAgain" type="button">再問一個問題</button>
       </div>
     </div>
   </section>
@@ -1264,6 +1334,47 @@ async function loadCrowd(highlight) {
   });
   clearTimeout(crowdTimer); crowdTimer = setTimeout(() => loadCrowd(), 60000);
 }
+
+/* ---------- 匿名提問單 ---------- */
+const askForm = $('#askForm');
+$$('.topic textarea').forEach(t => t.addEventListener('input', () => {
+  t.parentElement.querySelector('.cnt span').textContent = t.value.length;
+}));
+askForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const msg = $('#askMsg'); msg.textContent = '';
+  const questions = [
+    { topic: '真理追求', text: askForm.q1.value.trim() },
+    { topic: '如何愛主追求主', text: askForm.q2.value.trim() }
+  ].filter(q => q.text);
+  if (!questions.length) {
+    msg.textContent = '請至少寫一個問題';
+    $$('.topic', askForm).forEach(t => { t.classList.remove('shake'); void t.offsetWidth; t.classList.add('shake'); });
+    return;
+  }
+  const btn = $('.submit', askForm); busy(btn, true, '送出中…');
+  try {
+    let res;
+    if (DEMO) { await new Promise(r => setTimeout(r, 800)); res = { ok: true, count: questions.length }; }
+    else res = await api.post({ action: 'ask', questions });
+    if (!res.ok) throw new Error(res.error || '送出失敗');
+    if (!reduce) {
+      const r = btn.getBoundingClientRect(), p = document.createElement('div');
+      p.className = 'fly'; p.style.left = r.left + r.width / 2 - 20 + 'px'; p.style.top = r.top - 10 + 'px';
+      p.innerHTML = $('.plane').outerHTML.replace('class="plane"', '');
+      document.body.appendChild(p); setTimeout(() => p.remove(), 1400);
+    }
+    $('#askDoneSub').textContent = `已送出 ${res.count} 個問題。謝謝你的提問，不會記錄你是誰。`;
+    askForm.reset(); $$('.topic .cnt span').forEach(s => s.textContent = 0);
+    askForm.style.display = 'none'; $('#askDone').classList.add('on');
+  } catch (err) {
+    msg.textContent = '沒有送出成功：' + err.message + '。請再試一次。';
+  } finally { busy(btn, false, '匿名送出問題'); }
+});
+$('#askAgain').addEventListener('click', () => {
+  $('#askDone').classList.remove('on'); askForm.style.display = '';
+  askForm.q1.focus();
+});
 
 if (DEMO) $('#crowd-sec .wrap').insertAdjacentHTML('beforeend', '<p class="demo">示範模式：還沒接上試算表，資料只存在這台瀏覽器。</p>');
 renderMine();

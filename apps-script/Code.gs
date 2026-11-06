@@ -5,11 +5,17 @@
  *   GET  ?action=list           → 回傳報名者名單（只有名字和是否已繳費，不含電話、身分證）
  *   POST {action:'register',…}  → 新增一列報名資料，回傳報名編號
  *   POST {action:'pay',…}       → 上傳匯款截圖到雲端硬碟，把連結寫回該列
+ *   POST {action:'ask',…}       → 匿名提問，寫進「提問單」分頁（不記任何個人資料）
+ *   每個動作都可帶 site：'taichung'（預設，「表單回覆 1」）或 'fengchia'（「逢甲報名」）
  *
  * 部署方式見同資料夾的 README.md。
  */
 
-const SHEET_NAME = '表單回覆 1';
+// 每一場用自己的分頁；網頁送來的 site 決定寫到哪一頁（沒給就是台中場）
+const SITES = {
+  taichung: { sheet: '表單回覆 1', label: '台中場' },
+  fengchia: { sheet: '逢甲報名', label: '逢甲場' }
+};
 const FOLDER_NAME = '呼召聚會 匯款截圖';
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
@@ -30,7 +36,7 @@ const COL = {
 
 function doGet(e) {
   const action = (e && e.parameter && e.parameter.action) || 'list';
-  if (action === 'list') return json_({ ok: true, people: listPeople_() });
+  if (action === 'list') return json_({ ok: true, people: listPeople_(e.parameter.site) });
   return json_({ ok: false, error: '未知的動作' });
 }
 
@@ -42,6 +48,7 @@ function doPost(e) {
   try {
     if (body.action === 'register') return json_(register_(body));
     if (body.action === 'pay') return json_(pay_(body));
+    if (body.action === 'ask') return json_(ask_(body));
     return json_({ ok: false, error: '未知的動作' });
   } catch (err) {
     return json_({ ok: false, error: String(err.message || err) });
@@ -51,8 +58,8 @@ function doPost(e) {
 }
 
 /* ---------- 名單 ---------- */
-function listPeople_() {
-  const { sheet, cols } = sheet_();
+function listPeople_(site) {
+  const { sheet, cols } = sheet_(site);
   const last = sheet.getLastRow();
   if (last < 2) return [];
   const rows = sheet.getRange(2, 1, last - 1, sheet.getLastColumn()).getValues();
@@ -74,7 +81,7 @@ function register_(b) {
   const nid = String(b.nid).toUpperCase().trim();
   if (!/^[A-Z][0-9A-D]\d{8}$/.test(nid)) return { ok: false, error: '身分證字號格式不對' };
 
-  const { sheet, cols } = sheet_();
+  const { sheet, cols } = sheet_(b.site);
   const id = Utilities.getUuid().replace(/-/g, '').slice(0, 12);
   const row = new Array(sheet.getLastColumn()).fill('');
   const put = (k, v) => { row[cols[k] - 1] = v; };
@@ -95,7 +102,7 @@ function register_(b) {
 
 /* ---------- 上傳匯款截圖 ---------- */
 function pay_(b) {
-  const { sheet, cols } = sheet_();
+  const { sheet, cols } = sheet_(b.site);
   const rowNo = findRow_(sheet, cols, b);
   if (!rowNo) return { ok: false, error: '找不到這筆報名，請確認名字和手機末四碼' };
 
@@ -106,7 +113,7 @@ function pay_(b) {
 
   const name = sheet.getRange(rowNo, cols.name).getValue();
   const ext = m[1].split('/')[1].replace('jpeg', 'jpg');
-  const blob = Utilities.newBlob(bytes, m[1], `${name}_${Utilities.formatDate(new Date(), 'Asia/Taipei', 'MMdd-HHmm')}.${ext}`);
+  const blob = Utilities.newBlob(bytes, m[1], `${site_(b.site).label}_${name}_${Utilities.formatDate(new Date(), 'Asia/Taipei', 'MMdd-HHmm')}.${ext}`);
   const file = folder_().createFile(blob);   // 只有試算表擁有者看得到
   sheet.getRange(rowNo, cols.receipt).setValue(file.getUrl());
   return { ok: true, name };
@@ -128,10 +135,45 @@ function findRow_(sheet, cols, b) {
   return 0;
 }
 
+/* ---------- 匿名提問單 ---------- */
+const ASK_SHEET = '提問單';
+const ASK_TOPICS = ['真理追求', '如何愛主追求主'];
+
+function ask_(b) {
+  const items = (Array.isArray(b.questions) ? b.questions : [])
+    .map(q => ({ topic: String(q.topic || ''), text: clean_(q.text, 1000) }))
+    .filter(q => ASK_TOPICS.indexOf(q.topic) >= 0 && q.text);
+  if (!items.length) return { ok: false, error: '請至少寫一個問題' };
+
+  const ss = SpreadsheetApp.getActive();
+  let sh = ss.getSheetByName(ASK_SHEET);
+  if (!sh) {
+    sh = ss.insertSheet(ASK_SHEET);
+    sh.appendRow(['日期', '場次', '主題', '問題']);
+    sh.setFrozenRows(1);
+    sh.setColumnWidth(4, 520);
+  }
+  // 匿名：只記日期（不記時間）、主題、問題，不記名字或任何識別資料
+  const day = Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyy/MM/dd');
+  const label = site_(b.site).label;
+  items.forEach(q => sh.appendRow([day, label, q.topic, q.text]));
+  return { ok: true, count: items.length };
+}
+
 /* ---------- 工具 ---------- */
-function sheet_() {
-  const sheet = SpreadsheetApp.getActive().getSheetByName(SHEET_NAME);
-  if (!sheet) throw new Error('找不到分頁：' + SHEET_NAME);
+function site_(site) {
+  return SITES[site] || SITES.taichung;
+}
+
+function sheet_(site) {
+  const name = site_(site).sheet;
+  const ss = SpreadsheetApp.getActive();
+  let sheet = ss.getSheetByName(name);
+  if (!sheet) {                                   // 新場次第一次用：建立分頁和標題列
+    sheet = ss.insertSheet(name);
+    sheet.appendRow(Object.keys(COL).map(k => COL[k]));
+    sheet.setFrozenRows(1);
+  }
   let headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(String);
   if (headers.indexOf(COL.id) < 0) {              // 第一次使用時加上「報名編號」欄
     sheet.getRange(1, headers.length + 1).setValue(COL.id);
@@ -162,7 +204,6 @@ function json_(obj) {
 
 /** 在編輯器裡手動執行一次，用來授權並檢查欄位都找得到 */
 function setupCheck() {
-  const { cols } = sheet_();
+  for (const k in SITES) Logger.log(SITES[k].sheet + ' 欄位：' + JSON.stringify(sheet_(k).cols));
   folder_();
-  Logger.log('欄位都找到了：' + JSON.stringify(cols));
 }
