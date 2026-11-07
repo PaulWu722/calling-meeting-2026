@@ -314,6 +314,21 @@ textarea.input{min-height:100px;resize:vertical}
 .status .reset{background:none;border:0;color:var(--ink-mute);font-size:13px;text-decoration:underline;cursor:pointer;margin-left:6px}
 
 /* ---------- 繳費 ---------- */
+/* ---------- 重複報名 ---------- */
+.dup{display:none;margin:4px 0 18px;padding:20px;border-radius:16px;background:#fbf3dc;border:1.5px solid rgba(201,153,40,.55)}
+.dup.on{display:block;animation:pop .6s cubic-bezier(.3,1.5,.4,1)}
+.dup > b{display:block;font-family:var(--brush);font-size:24px;margin-bottom:2px}
+.dup p{color:var(--ink-soft);font-size:15px}
+.dup .diff{margin:12px 0;border-radius:12px;background:var(--card);border:1px solid var(--line);padding:4px 14px;font-size:14px}
+.dup .diff > div{display:grid;grid-template-columns:72px 1fr 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dup .diff > div:last-child{border-bottom:0}
+.dup .diff .dh{color:var(--ink-mute);font-size:12px}
+.dup .diff span:first-child{color:var(--ink-mute)}
+.dup .diff .chg span:last-child{color:var(--clay);font-weight:700}
+.dup-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.dup-btns .cta{padding:12px 24px;font-size:16px}
+.dup-btns .ghost{margin:0}
+
 .steps{display:flex;gap:8px;margin-bottom:22px;font-size:14px;color:var(--ink-mute)}
 .steps span{display:flex;align-items:center;gap:6px}
 .steps span+span::before{content:"";width:24px;height:1.5px;background:var(--line);margin-right:2px}
@@ -663,6 +678,13 @@ footer .verse{font-family:var(--brush);font-size:22px;color:#f3eee3;letter-spaci
             <textarea class="input" id="f-note" name="note" placeholder="選填"></textarea>
           </div>
 
+          <div class="dup" id="dupBox" role="alertdialog" aria-labelledby="dupTitle">
+            <b id="dupTitle">你已經報名過了！</b>
+            <p><span id="dupName"></span>・<span id="dupState"></span></p>
+            <div class="diff" id="dupDiff"></div>
+            <p>要把報名資料改成這次填的內容嗎？</p>
+            <div class="dup-btns"><button type="button" class="cta" id="dupYes">更新報名資料</button><button type="button" class="ghost" id="dupNo">不用了，保持原本的</button></div>
+          </div>
           <button class="cta submit" type="submit"><span class="spin"></span><span class="lbl">送出報名</span></button>
           <p class="pay-msg" id="regMsg" role="alert"></p>
           <p class="fine">送出後就算報名成功，之後再匯款、上傳截圖即可。</p>
@@ -1169,22 +1191,57 @@ form.addEventListener('submit', async e => {
     role: pick('role', F.roleOther), phone: F.phone.value, nid: F.nid.value, bday: F.bday.value,
     stop: radio('stop'), note: F.note.value.trim()
   };
-  const btn = $('.submit', form); busy(btn, true, '送出中…'); $('#regMsg').textContent = '';
+  $('#dupBox').classList.remove('on');
+  await sendReg(body);
+});
+
+async function sendReg(body) {
+  const btn = $('.submit', form); busy(btn, true, body.update ? '更新中…' : '送出中…'); $('#regMsg').textContent = '';
   try {
     const res = await api.post(body);
+    if (res.duplicate) { showDup(res, body); return; }
     if (!res.ok) throw new Error(res.error || '送出失敗');
-    mine = { id: res.id, name: body.name, role: body.role, paid: false };
+    const paid = !!res.paid;
+    mine = { id: res.id, name: body.name, role: body.role, paid };
     store.set('fc_myReg', mine);
-    const rows = [['姓名', body.name], ['身份', body.role], ['上車地點', body.stop], ['應繳金額', fee(body.role) + ' 元']];
+    const rows = [['姓名', body.name], ['身份', body.role], ['上車地點', body.stop], [paid ? '繳費狀態' : '應繳金額', paid ? '已繳費' : fee(body.role) + ' 元']];
     $('#summary').innerHTML = rows.map(([a]) => `<div><span>${a}</span><b></b></div>`).join('');
     $$('#summary b').forEach((b, i) => b.textContent = rows[i][1]);
+    $('#success h3').textContent = res.updated ? '報名資料已更新！' : '已收到報名！';
+    $('#success p').innerHTML = paid
+      ? '目前狀態：<b style="color:var(--ok)">報名完成</b><br>你之前已經上傳過匯款截圖，不用再繳一次。'
+      : '目前狀態：<b style="color:#b58614">已報名・未繳費</b><br>匯款後到下方上傳截圖，就完成報名。';
     form.style.display = 'none'; $('#success').classList.add('on');
     renderMine(); celebrate(); loadCrowd(body.name);
     $('#success').scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (err) {
     $('#regMsg').textContent = '沒有送出成功：' + err.message + '。請再試一次，或聯絡服事者。';
   } finally { busy(btn, false, '送出報名'); }
-});
+}
+
+// 已經報名過：顯示原本的選項，讓他決定要不要改成這次填的內容
+function showDup(res, body) {
+  const box = $('#dupBox');
+  $('#dupName').textContent = res.name;
+  $('#dupState').textContent = res.paid ? '報名完成（已繳費）' : '已報名・未繳費';
+  $('#dupState').style.color = res.paid ? 'var(--ok)' : '#b58614';
+  const c = res.current || {};
+  const rows = [['校園', c.campus, body.campus], ['身份', c.role, body.role], ['上車地點', c.stop, body.stop], ['備註', c.note || '（無）', body.note || '（無）']];
+  $('#dupDiff').innerHTML = '<div class="dh"><span></span><span>原本</span><span>這次填的</span></div>' +
+    rows.map(() => '<div><span></span><span></span><span></span></div>').join('');
+  $$('#dupDiff > div:not(.dh)').forEach((d, i) => {
+    const [k, a, b] = rows[i], sp = d.children;
+    sp[0].textContent = k; sp[1].textContent = a || '—'; sp[2].textContent = b || '—';
+    if (String(a).trim() !== String(b).trim()) d.classList.add('chg');
+  });
+  box.classList.add('on');
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  $('#dupYes').onclick = () => { box.classList.remove('on'); sendReg(Object.assign({}, body, { update: true })); };
+  $('#dupNo').onclick = () => {
+    box.classList.remove('on');
+    $('#regMsg').textContent = '你的報名資料沒有變更。';
+  };
+}
 $('#again').addEventListener('click', () => {
   form.reset(); $$('.field', form).forEach(f => f.classList.remove('done', 'bad'));
   $$('.other-input', form).forEach(o => o.classList.remove('on'));

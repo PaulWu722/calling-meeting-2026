@@ -84,6 +84,39 @@ function register_(b) {
   if (!/^[A-Z][0-9A-D]\d{8}$/.test(nid)) return { ok: false, error: '身分證字號格式不對' };
 
   const { sheet, cols } = sheet_(b.site);
+
+  // 重複報名：同一個身分證字號，且手機或名字也對得上，就算同一個人
+  const dupRow = findDup_(sheet, cols, nid, phone, String(b.name).trim());
+  if (dupRow) {
+    const cur = sheet.getRange(dupRow, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const paid = !!String(cur[cols.receipt - 1]).trim();
+    const oldName = String(cur[cols.name - 1]).trim();
+    if (!b.update) {
+      // 只回傳對方自己填過的欄位，讓網頁顯示「你已經報名過」
+      return {
+        ok: false, duplicate: true, name: oldName, paid,
+        current: {
+          campus: String(cur[cols.campus - 1]), role: String(cur[cols.role - 1]),
+          stop: String(cur[cols.stop - 1]), note: String(cur[cols.note - 1])
+        }
+      };
+    }
+    // 更新：保留原本的時間戳記、匯款截圖、報名編號
+    let id = String(cur[cols.id - 1]).trim();
+    if (!id) id = Utilities.getUuid().replace(/-/g, '').slice(0, 12);
+    const set = (k, v) => sheet.getRange(dupRow, cols[k]).setValue(v);
+    set('name', clean_(b.name, 40));
+    set('campus', clean_(b.campus, 40));
+    set('gender', clean_(b.gender, 10));
+    set('role', clean_(b.role, 40));
+    set('phone', "'" + phone);
+    set('bday', clean_(b.bday, 10).replace(/-/g, '/'));
+    set('stop', clean_(b.stop, 40));
+    set('note', clean_(b.note, 500));
+    set('id', id);
+    return { ok: true, id, updated: true, paid };
+  }
+
   const id = Utilities.getUuid().replace(/-/g, '').slice(0, 12);
   const row = new Array(sheet.getLastColumn()).fill('');
   const put = (k, v) => { row[cols[k] - 1] = v; };
@@ -100,6 +133,20 @@ function register_(b) {
   put('id', id);
   sheet.appendRow(row);
   return { ok: true, id };
+}
+
+function findDup_(sheet, cols, nid, phone, name) {
+  const last = sheet.getLastRow();
+  if (last < 2) return 0;
+  const data = sheet.getRange(2, 1, last - 1, sheet.getLastColumn()).getValues();
+  for (let i = data.length - 1; i >= 0; i--) {
+    const r = data[i];
+    if (String(r[cols.nid - 1]).toUpperCase().trim() !== nid) continue;
+    const p = String(r[cols.phone - 1]).replace(/\D/g, '');
+    const samePhone = p === phone || ('0' + p) === phone;   // Google 表單填的號碼可能少了開頭的 0
+    if (samePhone || String(r[cols.name - 1]).trim() === name) return i + 2;
+  }
+  return 0;
 }
 
 /* ---------- 上傳匯款截圖 ---------- */
